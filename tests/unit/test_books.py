@@ -5,14 +5,14 @@ from app.schemas import BookCreate
 def test_create_book(
     db_session,
 ):
-    book_data = {"serial_number": "123456", "title": "Test Book", "author": "Test Author"}
+    book_data = {
+        "serial_number": "123456",
+        "title": "Test Book",
+        "author": "Test Author",
+    }
     crud = BookCRUD(db_session)
 
-    book = crud.create_book(
-        BookCreate(
-            **book_data
-        )
-    )
+    book = crud.create_book(BookCreate(**book_data))
 
     assert book.serial_number == book_data["serial_number"]
     assert book.title == book_data["title"]

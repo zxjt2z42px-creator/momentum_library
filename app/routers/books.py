@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 
 from app.crud.books import BookCRUD
 from app.dependencies import get_db
-from app.schemas import BookCreate, BookResponse, BorrowBookRequest, BorrowingResponse
+from app.schemas import (BookCreate, BookResponse, BorrowBookRequest,
+                         BorrowingResponse)
 
 router = APIRouter(
     prefix="/books",

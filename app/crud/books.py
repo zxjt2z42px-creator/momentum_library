@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 from fastapi import HTTPException
@@ -7,6 +8,8 @@ from app.models.book import Book
 from app.models.borrowing import Borrowing
 from app.models.user import User
 from app.schemas import BookCreate
+
+logger = logging.getLogger(__name__)
 
 
 class BookCRUD:
@@ -63,6 +66,11 @@ class BookCRUD:
             )
 
         if book.is_borrowed:
+            logger.warning(
+                "Borrow attempt failed: book already borrowed. serial_number=%s card_number=%s",
+                serial_number,
+                card_number,
+            )
             raise HTTPException(
                 status_code=400,
                 detail="Book already borrowed",
@@ -110,6 +118,10 @@ class BookCRUD:
         )
 
         if not borrowing:
+            logger.warning(
+                "Return attempt failed: book is not currently borrowed. serial_number=%s",
+                serial_number,
+            )
             raise HTTPException(
                 status_code=400,
                 detail="Book is not borrowed",

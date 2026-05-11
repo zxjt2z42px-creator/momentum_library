@@ -9,6 +9,7 @@ def get_env_file():
 
     return ".env"
 
+
 class Settings(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
@@ -18,7 +19,9 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str
 
-    model_config = SettingsConfigDict(env_file=get_env_file(), env_file_encoding="utf-8")
+    model_config = SettingsConfigDict(
+        env_file=get_env_file(), env_file_encoding="utf-8"
+    )
 
 
 settings = Settings()
